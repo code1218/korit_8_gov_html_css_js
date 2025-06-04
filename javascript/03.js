@@ -90,3 +90,4 @@ obj.fx = () => {}
 console.log(obj)
 
 console.log(() => {});
+
