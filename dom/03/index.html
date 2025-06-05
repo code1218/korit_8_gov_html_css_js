@@ -37,8 +37,9 @@
         <div class="mid-box">
             <input type="text" placeholder="번호입력">
             <button>이동</button>
+            <button>삭제</button>
         </div>
-        <ul  class="right-box">
+        <ul class="right-box">
             
         </ul>
     </div>
@@ -69,14 +70,20 @@
             rightBox.innerHTML = selectedBookList.map(book => `<li>${book.id}. ${book.title}(${book.price}원)</li>`).join("");
         }
 
-        const moveButton = document.querySelector(".mid-box > button");
+        function isEmpty(str) {
+            if (!str) {
+                alert("도서번호를 입력하세요.");
+            };
+            return !str;
+        }
+
+        const moveButton = document.querySelectorAll(".mid-box > button")[0];
         moveButton.onclick = () => {
             const numberInput = document.querySelector(".mid-box > input");
             const numberInputValue = numberInput.value;
-            if (!numberInput.value) {
-                alert("이동시킬 번호를 입력하세요.")
-                return;
-            };
+
+            if (isEmpty(numberInputValue)) return;
+
             const foundBook = bookList.find(book => book.id === parseInt(numberInputValue));
             if (!foundBook) {
                 alert("해당 번호의 도서는 없습니다.");
@@ -90,7 +97,16 @@
             reload();
         }
 
+        const deleteButton = document.querySelectorAll(".mid-box > button")[1];
+        deleteButton.onclick = () => {
+            const numberInput = document.querySelector(".mid-box > input");
+            const numberInputValue = numberInput.value;
 
+            if (isEmpty(numberInputValue)) return;
+
+            selectedBookList = selectedBookList.filter(book => book.id !== parseInt(numberInputValue));
+            reload();
+        }
 
     </script>
 </body>
