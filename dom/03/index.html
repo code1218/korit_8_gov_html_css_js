@@ -57,6 +57,40 @@
             { id:10, title: "마이크로서비스 아키텍처", price: 40000 },
         ];
 
+        let selectedBookList = [];
+
+        window.onload = () => {
+            const leftBox = document.querySelector(".left-box");
+            leftBox.innerHTML = bookList.map(book => `<li>${book.id}. ${book.title}(${book.price}원)</li>`).join("");
+        }
+
+        function reload() {
+            const rightBox = document.querySelector(".right-box");
+            rightBox.innerHTML = selectedBookList.map(book => `<li>${book.id}. ${book.title}(${book.price}원)</li>`).join("");
+        }
+
+        const moveButton = document.querySelector(".mid-box > button");
+        moveButton.onclick = () => {
+            const numberInput = document.querySelector(".mid-box > input");
+            const numberInputValue = numberInput.value;
+            if (!numberInput.value) {
+                alert("이동시킬 번호를 입력하세요.")
+                return;
+            };
+            const foundBook = bookList.find(book => book.id === parseInt(numberInputValue));
+            if (!foundBook) {
+                alert("해당 번호의 도서는 없습니다.");
+                return;
+            }
+            if (!!selectedBookList.find(book => book.id === parseInt(numberInputValue))) {
+                alert("이미 존재하는 도서입니다.");
+                return;
+            }
+            selectedBookList = [...selectedBookList, foundBook];
+            reload();
+        }
+
+
 
     </script>
 </body>
