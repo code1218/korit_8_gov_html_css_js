@@ -1,3 +1,4 @@
+let studentList = [];
 
 function app() {
     const appInfo = {
